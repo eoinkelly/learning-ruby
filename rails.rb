@@ -19,3 +19,22 @@
 
 # a class is a combination of state and methods
 
+rails new <projectname>
+cd <projectname>
+rake about # gives a bunch of info about the project
+rake doc:rails # builds rails api docs, also online at http://api.rubyonrails.org/
+rails server
+rails generate controller <ControllerClassName> <method1> <method2> ...
+ctrl+pause to kill rails server in windows cmd prompt
+
+
+helpers:
+  link_to "Pretty Text" <controllernamelowercase>_<methodname>_path
+
+
+<%= %>
+Content between <%= and %> is executed as ruby code and the result is converted to a string and pasted in instead.
+How does this conversion happen? Is there a to_s invoked somewhere? if so, where?
+
+<% %>
+Content between these is executed as ruby code but not converted to a string - I think any output is thrown away -check this

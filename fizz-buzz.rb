@@ -89,6 +89,8 @@
 
 # Attempt 4:
 
+# ? is it safe to use self here, do i need to_i or similar?
+
 class Integer < Numeric
 
   def is_multiple_of(x)

@@ -1,0 +1,21 @@
+<h1>Hello there!</h1>
+
+<p>
+	This is a computation: <%= 1 + 2 %>
+</p>
+<p>
+	<%= 1.day.from_now %>
+.day.from_now comes from ActiveSupport::Duration
+</p>
+
+
+<ul>
+<% for file in @files %>
+	<li>
+	file name is: <%= file %>
+	</li>
+<% end %>
+</ul>
+
+<p>The time is <%= @time %>.</p>
+<p>You should check out the <%= link_to "Goodbye Page", say_goodbye_path %>. The format of link_to path seems to be (controller-name)_(method-name)_path</p>
