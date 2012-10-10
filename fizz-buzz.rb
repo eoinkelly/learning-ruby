@@ -7,6 +7,7 @@
 # three print "Fizz" instead of the number and for the multiples of five print
 # "Buzz". For numbers which are multiples of both three and five print "FizzBuzz".
 
+
 # Attempt 1:
 # (1 .. 100).each do |i|
 
@@ -91,8 +92,7 @@
 class Integer < Numeric
 
   def is_multiple_of(x)
-    my_i = self.to_i
-    (my_i % x == 0) ? true : false
+    (self % x == 0) ? true : false
   end
 
   def to_fizzbuzz
