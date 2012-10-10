@@ -51,43 +51,59 @@
 # Attempt 3:
 # make a "fizz buzz representation of an integer" it takes an int and spits back it's fizzbuzz rep
 
-# todo: rename megaint
-class TestableNum
-  def initialize(n)
-    @num = n
+# class TestableNum
+#   def initialize(n)
+#     @num = n
+#   end
+
+#   def is_multiple_of(i)
+#     (@num % i == 0) ? true : false
+#   end
+
+#   def to_s
+#       "#{@num}"
+#   end
+# end
+
+# # A FizzBuzz is a special kind of integer that has a "FizzBuzz" representation
+# class FizzBuzz
+#   def initialize(n)
+#     @num = TestableNum.new(n)
+#   end
+
+#   def to_s
+#     acc = ""
+#     acc << @num.to_s unless @num.is_multiple_of(3) || @num.is_multiple_of(5)
+#     acc << "Fizz" if @num.is_multiple_of(3)
+#     acc << "Buzz" if @num.is_multiple_of(5)
+
+#     acc
+#   end
+
+# end
+
+# (1 .. 100).each do |i|
+#   print FizzBuzz.new(i)
+# end
+
+# Attempt 4:
+
+class Integer < Numeric
+
+  def is_multiple_of(x)
+    my_i = self.to_i
+    (my_i % x == 0) ? true : false
   end
 
-  def is_multiple_of(i)
-    (@num % i == 0) ? true : false
-  end
-
-  def to_s
-      "#{@num}"
-  end
-end
-
-# A FizzBuzz is a special kind of integer that has a "FizzBuzz" representation
-class FizzBuzz
-  def initialize(n)
-    @num = TestableNum.new(n)
-  end
-
-  def to_s
+  def to_fizzbuzz
     acc = ""
-    acc << @num.to_s unless @num.is_multiple_of(3) || @num.is_multiple_of(5)
-    acc << "Fizz" if @num.is_multiple_of(3)
-    acc << "Buzz" if @num.is_multiple_of(5)
-
+    acc << self.to_s unless self.is_multiple_of(3) || self.is_multiple_of(5)
+    acc << "Fizz" if self.is_multiple_of(3)
+    acc << "Buzz" if self.is_multiple_of(5)
     acc
   end
 
 end
-
-(1 .. 100).each do |i|
-  print FizzBuzz.new(i)
-end
-
-# Attempt 4: to_fizzbuzz method on numbers would be nice and clean (be able to take any num but only do our magic on ints)
 
 (1 .. 100).each do |i|
   puts i.to_fizzbuzz
