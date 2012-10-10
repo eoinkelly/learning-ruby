@@ -1,0 +1,1 @@
+it appears that rails controllers trigger the view but the view itself reaches into the model for the data it needs - true?
