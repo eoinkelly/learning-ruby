@@ -33,6 +33,13 @@ p "string object" # prints a dump of the argument to STDOUT, returns the argumen
 # operator are just syntactic sugar for methods. They are also called "symbolic" methods
 
 # . is the "message passing" operator in ruby
+
+# Logical Operators
+
+# && and 'and' work the same except && has higher precedence http://phrogz.net/ProgrammingRuby/language.html#table%5F18.4
+# || and 'or' work the same except && has higher precedence http://phrogz.net/ProgrammingRuby/language.html#table%5F18.4
+# All of ||, and, or, && use "short circuit evaluation" (where the RHS operand is only evaluaged if the LHS one has a particular value)
+
 # Objects
 # #######
 
@@ -683,8 +690,11 @@ stateflag = :busy
 # #######
 
 #   serve 2 roles in ruby
-#     1. group similar methods together under a familiar name
-#     2.
+#     1. group similar methods together under a familiar name to avoid name clashes
+#     2. Share functionality between classes
+
+# * You can't create objects out of modules (like classes can)
+# * Classes can "mix in" a module which lets them use shared functionality without the formality of inheritance
 
 # Methods (Functions)
 # #################
@@ -1153,6 +1163,8 @@ _foofoo # correct
 # way, usually because it modifies it's receiver. Again the ruby interpreter
 # does not treat these methods any differently - it is just a human convention
 
+# bang method name implies that this method does something descrutive to the receiver
+
 # In ruby core & stdlib a bang method is always be paired with a "non dangerous"
 # version e.g. foo() and foo!()
 
@@ -1452,6 +1464,16 @@ foo(*(10 .. 20)) # passes 10, 11, 12 -> 19, 20
   # is exactly the same as
   foo(23, 45) { puts "hello" }
 
+# Faking Named Parameters
+# #######################
+
+# In ruby you can omit the braces on a hash passed as parameter to a method but
+# only if the hash is the last parameter. Rails uses this a lot.
+
+do_foo_thing name: 'Eoin', age: 33
+do_foo_thing(name: 'Eoin', age: 33) # same thing
+do_foo_thing({ name: 'Eoin', age: 33 }) # same thing
+
 # Returning stuff from ruby methods
 # #################################
 
@@ -1545,3 +1567,20 @@ things.methods - Object.methods # don't show the methods that thing gets from Ob
 # * Optionally omit parens when sending a message with arguments if it's in a DSL or the resulting value is ignored
 
 # He does this so that the method invocations can be more easily chained when refactoring later
+
+# Exceptions
+# ##########
+
+begin
+  # do stuff
+rescue Exception => ex
+  # do stuff with ex
+end
+
+# You can omit the begin and end statements if this block is the top-level block within a function e.g.
+
+def doStuff
+    #do stuff
+  rescue Exception => ex
+    # do stuff with ex
+end

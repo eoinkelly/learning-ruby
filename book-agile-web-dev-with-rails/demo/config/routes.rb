@@ -1,4 +1,8 @@
 Demo::Application.routes.draw do
+  get "book/read"
+
+  get "book/write"
+
   get "say/hello"
 
   get "say/goodbye"
