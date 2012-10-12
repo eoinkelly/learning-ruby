@@ -30,8 +30,10 @@
 # rails server -e test
 # rails server -e production
 # rails generate controller <ControllerClassName> <method1> <method2> ...
+# rake db:migrate:redo # this can help if get weird problems
 # rails destroy # delete the stuff created by generate
 # ctrl+pause to kill rails server in windows cmd prompt
+# rails generate scaffold Product title:string description:text image_url:string price:decimal
 
 
 # helpers:
@@ -226,3 +228,32 @@ require_relative '/../test_helper'
 # Rails Naming Conventions
 # ######################
 
+# Scaffolding
+# ###########
+
+# A scaffold for a model creates
+# 1. model
+# 2. views
+#   * _form
+#   * edit
+#   * index
+#   * new
+#   * show
+# 3. controller
+# 3. an empty helper module
+# 3. css
+#   * scaffolds css ?
+# 3. js/coffee
+#   * empty coffee file
+# 4. db migration
+# 5. functional tests
+# 6. starters for unit tests
+# 6. starter test fixtures
+
+# for a given model in one go
+
+# Example:
+# rails generate scaffold Product title:string description:text image_url:string price:decimal
+
+# * rails takes the calss name we gave it (Product) and creates a pluralized, lowercased, underscore seperated version of it and uses that as the table name in the db migration
+# * rails now has the table name and can figure out which database to use from /config/database.yml and also knowing which environment we are running in.
