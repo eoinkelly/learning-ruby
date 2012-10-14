@@ -34,10 +34,32 @@
 # rails server -e production
 # rails generate controller <ControllerClassName> <method1> <method2> ...
 
+
+rake test:units
+rake test:functionals
+rake test:integration
+rake test # runs the 3 above together
+
+rake test:benchmark
+rake test:profile
+rake test:plugins
+rake test:recent
+rake test:single
+rake test:uncommited
+
+rake test:units TEST=./test/unit/foo_test.rb # runs unit tests from a single file
+
+rake notes # enumerate all annotations (things marked :optimize, :fixme, :todo)
+# The search is done in files with extension .builder, .rb, .erb, .haml and .slim
+# ? doesn't seem to work in erb?
+
+# migrations change the database schema (not contents) - this can't be true in some cases???
 # rake db:migrate
 # rake db:rollback
 # rake db:migrate:redo # this can help if get weird problems
+
 # rake db:seed # replace the database with whatever /db/seeds.rb gives us
+rake db:test:prepare # load all our fixtures into the test database
 
 # rails destroy # delete the stuff created by generate
 # ctrl+pause to kill rails server in windows cmd prompt
@@ -291,3 +313,27 @@ require_relative '/../test_helper'
 
 # * rails takes the calss name we gave it (Product) and creates a pluralized, lowercased, underscore seperated version of it and uses that as the table name in the db migration
 # * rails now has the table name and can figure out which database to use from /config/database.yml and also knowing which environment we are running in.
+
+# Testing
+
+Each model has a test class and a test-helper class associated with it
+/app/models/product.rb # contains class Product
+/test/unit/foo_test.rb # contains class FooTest (the unit tests for that model)
+/test/unit/helpers/foo_helper_test.rb # contains class FooHelperTest (the test helpers for that model)
+
+/test/test_helper.rb # contains class  ActiveSupport::TestCase which seems to setup stuff for all tests???
+# TODO: research this
+
+ActiveSupport::TestCase is a sublcass of Test::Unit::TestCase so this project is using Test-Unit
+
+
+A fixture is an environment in which you can run a test
+
+In rails a fixture is a specificaiton of the initial content so fthe model (or
+models) under test e.g. if you want to make sure that the 'products' table in
+the DB starts off with known data at the beginning of each test, we specify
+those contents in a fixture.
+
+Each test method gets a freshly initialized table in the test database loaded
+from the fixtures we provide. This is done automatically by rake test but can be
+done manually by rake db:test:prepare

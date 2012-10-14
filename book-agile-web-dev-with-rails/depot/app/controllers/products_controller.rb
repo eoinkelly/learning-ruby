@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
+  # OPTIMIZE test 1212
+  # TODO: test uppercase
   def index
     @products = Product.all
 
