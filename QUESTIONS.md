@@ -8,3 +8,7 @@ pluralising table names is controversial, some DBAs reckon the table name should
 how do views map to layouts?
 
 Q: is it a terrible idea to mix the rails automagic js and custom stuff?
+Ask breccan how their team divides work on projects
+Their git etiquette
+
+xmas hols

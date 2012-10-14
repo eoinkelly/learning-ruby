@@ -12,14 +12,18 @@
   </tr>
 
 <% @products.each do |product| %>
-  <tr>
+  <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
     <td><%= product.title %></td>
-    <td><%= product.description %></td>
-    <td><%= product.image_url %></td>
+    <td class="list_description"><%= truncate(strip_tags(product.description), length: 80) %></td>
+    <td><%= image_tag(product.image_url, class: 'list_image') %></td>
     <td><%= product.price %></td>
     <td><%= link_to 'Show', product %></td>
     <td><%= link_to 'Edit', edit_product_path(product) %></td>
-    <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to('Destroy',
+                    product,
+                    { method: :delete,
+                      data: { confirm: 'Are you sure?' } } )
+          %></td>
   </tr>
 <% end %>
 </table>
@@ -27,3 +31,22 @@
 <br />
 
 <%= link_to 'New Product', new_product_path %>
+
+<p>
+  Play space:
+<%= # link_to 'New Product', new_product_path
+%>
+<%= url_for({
+            action: 'index',
+            controller: 'products',
+            anchor: "ahoyanchor",
+            only_path: true,
+            trailing_slash: false # not recommended to be true as it breaks caching according to rails api docs
+            # host:
+            # protocol: ,
+            # user: ,
+            # password:
+}) %>
+<%= url_for('http://www.goo.com') %>
+<%= url_for(:back) %>
+</p>

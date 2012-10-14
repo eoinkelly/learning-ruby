@@ -19,6 +19,9 @@
 
 # a class is a combination of state and methods
 
+# Command Line
+# ############
+
 # rails new <projectname>
 # cd <projectname>
 # rake about # gives a bunch of info about the project
@@ -30,14 +33,45 @@
 # rails server -e test
 # rails server -e production
 # rails generate controller <ControllerClassName> <method1> <method2> ...
+
+# rake db:migrate
+# rake db:rollback
 # rake db:migrate:redo # this can help if get weird problems
+# rake db:seed # replace the database with whatever /db/seeds.rb gives us
+
 # rails destroy # delete the stuff created by generate
 # ctrl+pause to kill rails server in windows cmd prompt
 # rails generate scaffold Product title:string description:text image_url:string price:decimal
 
 
-# helpers:
+# Rails Helpers
+# #############
+
+# * link_to
 #   link_to "Pretty Text" <controllernamelowercase>_<methodname>_path
+
+#   when using method: :delete
+#     * can take 'method' parameter that specifies which HTTP method to use. rails puts a data-method="delete".
+#     * The rails js then POST request and sends a form data field of '_method: delete' when rails gets this it knows
+
+#   HTML forms (up to HTML version 4 and XHTML 1) only support GET and POST as HTTP
+#   request methods. A workaround for this is to tunnel other methods through POST
+#   by using a hidden form field which is read by the server and the request
+#   dispatched accordingly.
+
+#   However, for the vast majority of RESTful web services GET, POST, PUT and DELETE
+#   should be sufficient. All these methods are supported by the implementations of
+#   XMLHttpRequest in all the major web browsers (IE, Firefox, Opera).
+
+#   The default rails JS (loaded from jquery_ujs.js) is setup to automatically do stuff based on data-* attributes in HTML elements
+#     data-confirm = popup an alert box requesting confirmation
+#     data-method = what HTTP verb should we use here
+#   These data-* attributes are placed on elements using the rails helpers e.g. link_to
+
+# * cycle
+# * truncate
+# * strip_tags
+# * image_tag url, class: 'class-name'
 
 # <%= %>
 # Content between <%= and %> is executed as ruby code and the result is converted to a string and pasted in instead.
