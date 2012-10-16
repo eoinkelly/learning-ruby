@@ -14,6 +14,11 @@ class ProductsControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
+
+    assert_select '#columns #side a', minimum: 4 # minimum of 4 links
+    assert_select '.list_description', 3
+    assert_select 'td', 'Programming Ruby 1.9' # a h3 exists with contents given
+
     assert_not_nil assigns(:products)
   end
 

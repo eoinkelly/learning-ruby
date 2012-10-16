@@ -5,8 +5,18 @@ gem 'rails', '3.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+gem "turn", "~> 0.9.6"
 
+gem 'sqlite3'
+# I'm commenting this out because the jruby activerecord sqlite adapter gem
+# doesn't appear to be available when I'm not using jRuby?
+
+# platforms :ruby do
+#   gem 'sqlite3'
+# end
+# platforms :jruby do
+#   gem 'activerecord-jdbcsqlite3-adapter'
+# end
 
 # Gems used only for assets and not required
 # in production environments by default.

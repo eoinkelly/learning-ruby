@@ -9,6 +9,16 @@ how do views map to layouts?
 
 Q: is it a terrible idea to mix the rails automagic js and custom stuff?
 Ask breccan how their team divides work on projects
-Their git etiquette
+What should my first project be?
+Their git etiquette?
 
 xmas hols
+
+it seems that any code you put in the controller, you can also put in the view.
+	* is this true?
+	* does rails enforce any rules around this because I think it should ...
+
+what "grinds their gears" about code layout/commenting etc.
+
+if you change validation or tests such that the existing data in the db no longer passes, what is the best thing to do?
+	does rails provide help?

@@ -94,6 +94,8 @@ rake db:test:prepare # load all our fixtures into the test database
 # * truncate
 # * strip_tags
 # * image_tag url, class: 'class-name'
+sanitize
+
 
 # <%= %>
 # Content between <%= and %> is executed as ruby code and the result is converted to a string and pasted in instead.
@@ -315,25 +317,115 @@ require_relative '/../test_helper'
 # * rails now has the table name and can figure out which database to use from /config/database.yml and also knowing which environment we are running in.
 
 # Testing
+# #######
 
-Each model has a test class and a test-helper class associated with it
-/app/models/product.rb # contains class Product
-/test/unit/foo_test.rb # contains class FooTest (the unit tests for that model)
-/test/unit/helpers/foo_helper_test.rb # contains class FooHelperTest (the test helpers for that model)
+* http://guides.rubyonrails.org/testing.html
 
-/test/test_helper.rb # contains class  ActiveSupport::TestCase which seems to setup stuff for all tests???
-# TODO: research this
+Rails Tsting Frameworks
+* Test::UNit
+* Minitest
+* RSpec
+* Others???
 
-ActiveSupport::TestCase is a sublcass of Test::Unit::TestCase so this project is using Test-Unit
+# Each model has a test class and a test-helper class associated with it
+# /app/models/product.rb # contains class Product
+# /test/unit/foo_test.rb # contains class FooTest (the unit tests for that model)
+# /test/unit/helpers/foo_helper_test.rb # contains class FooHelperTest (the test helpers for that model)
+
+# /test/test_helper.rb # contains class  ActiveSupport::TestCase which seems to setup stuff for all tests???
+# # TODO: research this
+
+# ActiveSupport::TestCase is a sublcass of Test::Unit::TestCase so this project is using Test-Unit
 
 
-A fixture is an environment in which you can run a test
+# A fixture is an environment in which you can run a test
 
-In rails a fixture is a specificaiton of the initial content so fthe model (or
-models) under test e.g. if you want to make sure that the 'products' table in
-the DB starts off with known data at the beginning of each test, we specify
-those contents in a fixture.
+# In rails a fixture is a specificaiton of the initial content so fthe model (or
+# models) under test e.g. if you want to make sure that the 'products' table in
+# the DB starts off with known data at the beginning of each test, we specify
+# those contents in a fixture.
 
-Each test method gets a freshly initialized table in the test database loaded
-from the fixtures we provide. This is done automatically by rake test but can be
-done manually by rake db:test:prepare
+# Each test method gets a freshly initialized table in the test database loaded
+# from the fixtures we provide. This is done automatically by rake test but can be
+# done manually by rake db:test:prepare
+
+Functional tests and validations in the model check the behaviour of controllers. They do not retroactively change any data in DB or fixtures.
+* This means that if I change validation so that existing data would not pass, it will go undetected until until we have cause to modify and save those records.
+? can I run all the existing data through the model validation somehow?
+
+ - how to handle this?
+
+
+# Layouts & Rendering
+# ###################
+
+# * More at http://guides.rubyonrails.org/layouts_and_rendering.html
+# * application.html.erb is the layout used for all views for all controllers that don't otherwise provide a layout
+
+# * If you do not explicitly render something at the end of a controller action then Rails will automatically look for action_name.html.erb and render it.
+
+#   render
+#   render  nothing: true
+#   render "name_of_view" # renders name_of_view.html.erb template belonging to the same controller
+#   render "name_of_view.html.erb" # same thing as above
+#   render :name_of_view # same thing
+#   render 'other_controller/other_action' #  render /app/views/other_controller/other_action.html.erb
+#   render template: 'other_controller/other_action' # same thing, more explicit
+#   render '/absolute/path/to/some/file/on/system' # renders the file (with .html.erb extension) but doesn't wrap in current layout
+#   render file: '/absolute/path/to/some/file/on/system' # same thing, more explcit, hae to use this on windows
+#   render file: '/absolute/path/to/some/file/on/system', layout: true  # render the file and wrap it in current layout
+#   render inline: '<%= somevar %>this is sent straight to browser without using a view'
+#   render text: 'sent as plain text, handy for AJAX responses'
+#   render json: @somevar
+#   render xml: @somevar
+#   render js: 'console.log("some vanilla js");'
+#   render layout: false # don't use a layout
+#   render layout: 'special_layout'
+#   render status: 500 # override default HTTP response code
+#   render status: forbidden # words also work
+
+#   render takes 4 options:
+#     :content_type # used as content type header
+#     :layout # tell rails which layout to use
+#     :status
+#     :location # sets Location: HTTP header
+
+# How rails finds layouts (erb or builder)
+# 1. looks for /app/views/layouts/controller_base_name.html.erb # e.g. PhotosController looks for /app/views/layouts/photos.html.erb
+# 2. otherwise use app/views/layouts/application.html.erb
+
+# How to tell a Rails controller to use a specific layout
+class ProductsController < ApplicationController
+  layout "inventory" # Use app/views/layouts/inventory.html.erb
+  # ...
+end
+
+# * Layouts are set per-application or per-controller
+
+class ApplicationController < ActionController::Base
+  layout "main" # use app/views/layouts/main.html.erb as the default layout for all views
+end
+
+http://guides.rubyonrails.org/asset_pipeline.html
+
+* Files in app/assets are served by sprockets middleware from the sprockets gem. In production they are compiled into /public/assets
+* Assets can still be put in /public
+* Use app/assets for files that need processing an duse /public for static assets
+* Rails needs a JS runtime to process the coffeescript
+Sprockets has 3 default locations for assets
+* app/assets  # assets owned by my app
+* lib/assets  # assets owned by code that is shared across apps or doesn't really fit in MVC
+* vendor/assets # assets owned by outside entities e.g. JS plugins and CSS frameworks
+
+* directives are instructions to Sprockets
+* In JSfiles the directives begin with //=
+//= require home # searches the images, stylesheets, javascripts sub-dirs in all 3 locations for the file home.js
+//= require sub/something # searches the images, stylesheets, javascripts sub-dirs in all 3 locations for the file sub/something.js
+
+Css directives look like
+/*
+*= require_tree .
+*= require_self
+*/
+? do the JS //= style work in sass?
+
